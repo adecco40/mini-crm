@@ -9,6 +9,14 @@
 
 ## 1. Установка и запуск
 
+Требования
+
+-   Docker ≥ 20
+
+-   Docker Compose ≥ 2
+
+-   Локально установлен PHP не нужен (всё через Docker)
+
 ### 1.1 Клонируем репозиторий
 
 ```bash
@@ -31,6 +39,7 @@ cd docker
 
 ```bash
 docker compose up -d --build
+docker compose exec app composer install --no-interaction --prefer-dist
 ```
 
 ## 2. Проверка работы

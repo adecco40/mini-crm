@@ -4,7 +4,6 @@ set -e
 echo "Starting Laravel application..."
 
 echo "Waiting for database connection..."
-
 until php -r "
 try {
     \$pdo = new PDO(
@@ -22,11 +21,6 @@ exit(0);
 done
 
 echo "Database is ready!"
-
-# Установка зависимостей
-if [ ! -d "vendor" ]; then
-    composer install --no-interaction --prefer-dist
-fi
 
 # Генерация APP_KEY если нужно
 if [ -z "$APP_KEY" ] || [ "$APP_KEY" = "base64:" ]; then
@@ -49,5 +43,5 @@ php artisan optimize:clear
 
 echo "Application is ready!"
 
-# Запуск основного процесса контейнера (php-fpm)
+# Запуск php-fpm
 exec "$@"
