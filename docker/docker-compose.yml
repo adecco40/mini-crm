@@ -1,0 +1,39 @@
+services:
+    app:
+        build:
+            context: php
+        container_name: mini-crm
+        volumes:
+            - ../mini-crm:/var/www
+        working_dir: /var/www
+        env_file:
+            - ../mini-crm/.env
+        depends_on:
+            - postgres
+
+    nginx:
+        image: nginx:alpine
+        container_name: laravel_nginx
+        ports:
+            - '8000:80'
+        volumes:
+            - ../mini-crm:/var/www
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - app
+
+    postgres:
+        image: postgres:16
+        container_name: laravel_postgres
+        restart: unless-stopped
+        environment:
+            POSTGRES_DB: laravel
+            POSTGRES_USER: laravel
+            POSTGRES_PASSWORD: secret
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        ports:
+            - '5432:5432'
+
+volumes:
+    pgdata:
