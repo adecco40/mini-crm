@@ -39,7 +39,12 @@ cd docker
 
 ```bash
 docker compose up -d --build
-docker compose exec app composer install --no-interaction --prefer-dist
+```
+
+или
+
+```bash
+docker-compose up -d --build
 ```
 
 ## 2. Проверка работы
